@@ -2,6 +2,12 @@
 
 This repository provides access to measurements of the water inflow to a waster water treatment plant (WWTP). The data is accompanied by observations of relevant climate variables near the WWTP.
 
+## Location
+
+The location of the WWTP (blue) and weather station (green) have been marked in the following figure: 
+
+![location](images/map.png)
+
 ## Intended use
 
 The dataset is aimed at supporting educational, research, and exploratory activities, such as:
