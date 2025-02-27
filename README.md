@@ -2,12 +2,6 @@
 
 This repository provides access to measurements of the water inflow to a waster water treatment plant (WWTP). The data is accompanied by observations of relevant climate variables near the WWTP.
 
-## Location
-
-The location of the WWTP (blue) and weather station (green) have been marked in the following figure: 
-
-![location](images/map.png)
-
 ## Intended use
 
 The dataset is aimed at supporting educational, research, and exploratory activities, such as:
@@ -15,9 +9,23 @@ The dataset is aimed at supporting educational, research, and exploratory activi
 - Experimenting with time series models for forecasting
 - [...]
 
-## Details
+## Folder structure
 
-The WWTP is located in Horsens, DK.
+The data in this repository are organized as follows
+
+- `observations` contains all the relevant data. Each file in this folder contains measurements from a diferent source
+- `code` contains _jupyter_ notebooks exploring the dataset
+- `figures` contains relevant images
+
+Separately from the current repository, in [Zenodo]() you can find:
+    - [...]
+
+
+## Introduction
+
+The WWTP is located in Horsens, DK. The location of the WWTP (blue) and weather station (green) have been marked in the following figure: 
+
+![location](images/locations.png)
 
 ### Data description
 
@@ -25,7 +33,7 @@ The dataset contains the following variables; all variables have been measured a
 
 | label | Description | Units | Provider |
 | --- | --- | --- | --- |
-| inflow | Inflow of WWTP | m^3/h | TwinPlant |
+| FB20F11_81 | Inflow of WWTP | m^3/h | TwinPlant |
 | acc_precip | Accumulated precipitation | mm | DMI |
 | mean_pressure | Mean pressure | hPa | DMI |
 | mean_radiation | Mean radiation (spectral range: 305-2800nm) | W/m^2 | DMI |
