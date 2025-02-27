@@ -39,13 +39,13 @@ The dataset contains the following variables; all variables have been measured a
 
 DMI's free data is subject to the Creative Commons license CC BY. You can read more about the license terms [here](https://www.dmi.dk/friedata/guides-til-frie-data/vilkar-for-brug-af-data), but in short:
 
-    You are free to:
+You are free to:
 
-    - Parts — copy and redistribute the material in any media or format for all purposes, including commercial.
-    - Adapt — remix, modify and build on the material for all purposes, including commercial ones.
-    - The Licensor may not revoke the freedoms as long as you follow the license terms.
+- Parts — copy and redistribute the material in any media or format for all purposes, including commercial.
+- Adapt — remix, modify and build on the material for all purposes, including commercial ones.
+- The Licensor may not revoke the freedoms as long as you follow the license terms.
 
-    Under the following conditions:
+Under the following conditions:
 
-    - Crediting - You must provide appropriate credit , provide a link to the license, and provide information on whether any changes have been made . You must do so in any sensible way, but not in a way that suggests that the licensor approves you or your use.
-    - No additional restrictions - You may not add legal terms or technological measures that legally restrict others from doing what the license allows.
+- Crediting - You must provide appropriate credit , provide a link to the license, and provide information on whether any changes have been made . You must do so in any sensible way, but not in a way that suggests that the licensor approves you or your use.
+- No additional restrictions - You may not add legal terms or technological measures that legally restrict others from doing what the license allows.
