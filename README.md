@@ -45,9 +45,7 @@ The dataset contains the following variables; all variables have been measured a
 
 ## Usage rights
 
-DMI's free data is subject to the Creative Commons license CC BY. You can read more about the license terms [here](https://www.dmi.dk/friedata/guides-til-frie-data/vilkar-for-brug-af-data), but in short:
-
-You are free to:
+DMI's free data is subject to the Creative Commons license CC BY. You can read more about the license terms [here](https://www.dmi.dk/friedata/guides-til-frie-data/vilkar-for-brug-af-data); in short, you are free to:
 
 - Parts — copy and redistribute the material in any media or format for all purposes, including commercial.
 - Adapt — remix, modify and build on the material for all purposes, including commercial ones.
