@@ -18,7 +18,7 @@ The data in this repository are organized as follows
 - `figures` contains relevant images
 
 Separately from the current repository, in [Zenodo]() you can find:
-    - [...]
+- [...]
 
 
 ## Introduction
