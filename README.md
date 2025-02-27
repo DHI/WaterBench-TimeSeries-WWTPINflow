@@ -25,7 +25,7 @@ Separately from the current repository, in [Zenodo]() you can find:
 
 The WWTP is located in Horsens, DK. The location of the WWTP (blue) and weather station (green) have been marked in the following figure: 
 
-![location](images/locations.png)
+![location](figures/locations.png)
 
 ### Data description
 
