@@ -1,0 +1,11 @@
+{
+    "FB20F11_81": "m3/h",
+    "acc_precip": "mm",
+    "mean_pressure": "hPa",
+    "mean_radiation": "W/m2",
+    "mean_relative_hum": "%",
+    "mean_temp": "C",
+    "temp_grass": "C",
+    "temp_soil_10": "C",
+    "temp_soil_30": "C"
+}
