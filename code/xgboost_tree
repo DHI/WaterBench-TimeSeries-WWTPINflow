@@ -1,0 +1,360 @@
+digraph {
+    graph [ rankdir=TB ]
+    graph [ rankdir="LR" ]
+
+    0 [ label="acc_precip<0.926221967" ]
+    0 -> 1 [label="yes" color="#FF0000"]
+    0 -> 2 [label="no, missing" color="#0000FF"]
+
+    1 [ label="temp_soil_30<-1.22262847" ]
+    1 -> 3 [label="yes" color="#FF0000"]
+    1 -> 4 [label="no, missing" color="#0000FF"]
+
+    3 [ label="mean_pressure<-1.10049748" ]
+    3 -> 7 [label="yes" color="#FF0000"]
+    3 -> 8 [label="no, missing" color="#0000FF"]
+
+    7 [ label="temp_soil_10<-1.51500106" ]
+    7 -> 15 [label="yes" color="#FF0000"]
+    7 -> 16 [label="no, missing" color="#0000FF"]
+
+    15 [ label="mean_temp<-1.49163306" ]
+    15 -> 31 [label="yes" color="#FF0000"]
+    15 -> 32 [label="no, missing" color="#0000FF"]
+
+    31 [ label="mean_pressure<-1.97836387" ]
+    31 -> 61 [label="yes" color="#FF0000"]
+    31 -> 62 [label="no, missing" color="#0000FF"]
+
+    61 [ label="leaf=3.32114768" ]
+
+    62 [ label="leaf=-16.7138615" ]
+
+    32 [ label="mean_relative_hum<-0.0790254921" ]
+    32 -> 63 [label="yes" color="#FF0000"]
+    32 -> 64 [label="no, missing" color="#0000FF"]
+
+    63 [ label="leaf=49.8367386" ]
+
+    64 [ label="leaf=21.645071" ]
+
+    16 [ label="mean_pressure<-1.62910521" ]
+    16 -> 33 [label="yes" color="#FF0000"]
+    16 -> 34 [label="no, missing" color="#0000FF"]
+
+    33 [ label="mean_relative_hum<0.898647904" ]
+    33 -> 65 [label="yes" color="#FF0000"]
+    33 -> 66 [label="no, missing" color="#0000FF"]
+
+    65 [ label="leaf=90.4237976" ]
+
+    66 [ label="leaf=42.9528999" ]
+
+    34 [ label="acc_precip<-0.0440334044" ]
+    34 -> 67 [label="yes" color="#FF0000"]
+    34 -> 68 [label="no, missing" color="#0000FF"]
+
+    67 [ label="leaf=48.7076149" ]
+
+    68 [ label="leaf=75.4766464" ]
+
+    8 [ label="acc_precip<-0.0440334044" ]
+    8 -> 17 [label="yes" color="#FF0000"]
+    8 -> 18 [label="no, missing" color="#0000FF"]
+
+    17 [ label="temp_soil_30<-1.43929338" ]
+    17 -> 35 [label="yes" color="#FF0000"]
+    17 -> 36 [label="no, missing" color="#0000FF"]
+
+    35 [ label="mean_temp<-1.13394725" ]
+    35 -> 69 [label="yes" color="#FF0000"]
+    35 -> 70 [label="no, missing" color="#0000FF"]
+
+    69 [ label="leaf=3.9934299" ]
+
+    70 [ label="leaf=34.367527" ]
+
+    36 [ label="temp_soil_30<-1.24971163" ]
+    36 -> 71 [label="yes" color="#FF0000"]
+    36 -> 72 [label="no, missing" color="#0000FF"]
+
+    71 [ label="leaf=-0.144142717" ]
+
+    72 [ label="leaf=28.5146313" ]
+
+    18 [ label="acc_precip_t+1<0.602803528" ]
+    18 -> 37 [label="yes" color="#FF0000"]
+    18 -> 38 [label="no, missing" color="#0000FF"]
+
+    37 [ label="acc_precip_t+11<0.280745298" ]
+    37 -> 73 [label="yes" color="#FF0000"]
+    37 -> 74 [label="no, missing" color="#0000FF"]
+
+    73 [ label="leaf=38.479763" ]
+
+    74 [ label="leaf=13.4860716" ]
+
+    38 [ label="acc_precip_t+2<3.6752789" ]
+    38 -> 75 [label="yes" color="#FF0000"]
+    38 -> 76 [label="no, missing" color="#0000FF"]
+
+    75 [ label="leaf=56.674099" ]
+
+    76 [ label="leaf=109.451233" ]
+
+    4 [ label="acc_precip_t+1<0.441094279" ]
+    4 -> 9 [label="yes" color="#FF0000"]
+    4 -> 10 [label="no, missing" color="#0000FF"]
+
+    9 [ label="mean_pressure<0.136066824" ]
+    9 -> 19 [label="yes" color="#FF0000"]
+    9 -> 20 [label="no, missing" color="#0000FF"]
+
+    19 [ label="acc_precip<-0.0440334044" ]
+    19 -> 39 [label="yes" color="#FF0000"]
+    19 -> 40 [label="no, missing" color="#0000FF"]
+
+    39 [ label="fourier_sin<-0.403033704" ]
+    39 -> 77 [label="yes" color="#FF0000"]
+    39 -> 78 [label="no, missing" color="#0000FF"]
+
+    77 [ label="leaf=-19.031498" ]
+
+    78 [ label="leaf=-5.178092" ]
+
+    40 [ label="acc_precip_t+19<0.92919445" ]
+    40 -> 79 [label="yes" color="#FF0000"]
+    40 -> 80 [label="no, missing" color="#0000FF"]
+
+    79 [ label="leaf=10.1552696" ]
+
+    80 [ label="leaf=57.105835" ]
+
+    20 [ label="temp_soil_30<-0.301802844" ]
+    20 -> 41 [label="yes" color="#FF0000"]
+    20 -> 42 [label="no, missing" color="#0000FF"]
+
+    41 [ label="mean_temp<-1.16646409" ]
+    41 -> 81 [label="yes" color="#FF0000"]
+    41 -> 82 [label="no, missing" color="#0000FF"]
+
+    81 [ label="leaf=-19.2390728" ]
+
+    82 [ label="leaf=-6.14043236" ]
+
+    42 [ label="temp_soil_30<0.944020033" ]
+    42 -> 83 [label="yes" color="#FF0000"]
+    42 -> 84 [label="no, missing" color="#0000FF"]
+
+    83 [ label="leaf=-28.1458492" ]
+
+    84 [ label="leaf=-14.8076429" ]
+
+    10 [ label="acc_precip_t+1<2.05818653" ]
+    10 -> 21 [label="yes" color="#FF0000"]
+    10 -> 22 [label="no, missing" color="#0000FF"]
+
+    21 [ label="acc_precip<0.117675826" ]
+    21 -> 43 [label="yes" color="#FF0000"]
+    21 -> 44 [label="no, missing" color="#0000FF"]
+
+    43 [ label="fourier_sin<0.968991995" ]
+    43 -> 85 [label="yes" color="#FF0000"]
+    43 -> 86 [label="no, missing" color="#0000FF"]
+
+    85 [ label="leaf=6.95580053" ]
+
+    86 [ label="leaf=35.5540123" ]
+
+    44 [ label="acc_precip_t+1<1.08793116" ]
+    44 -> 87 [label="yes" color="#FF0000"]
+    44 -> 88 [label="no, missing" color="#0000FF"]
+
+    87 [ label="leaf=33.3526878" ]
+
+    88 [ label="leaf=64.4135513" ]
+
+    22 [ label="acc_precip_t+1<10.9521942" ]
+    22 -> 45 [label="yes" color="#FF0000"]
+    22 -> 46 [label="no, missing" color="#0000FF"]
+
+    45 [ label="mean_relative_hum<-1.22326541" ]
+    45 -> 89 [label="yes" color="#FF0000"]
+    45 -> 90 [label="no, missing" color="#0000FF"]
+
+    89 [ label="leaf=8.52459908" ]
+
+    90 [ label="leaf=72.2436142" ]
+
+    46 [ label="mean_pressure<-0.222631246" ]
+    46 -> 91 [label="yes" color="#FF0000"]
+    46 -> 92 [label="no, missing" color="#0000FF"]
+
+    91 [ label="leaf=189.45549" ]
+
+    92 [ label="leaf=47.3862724" ]
+
+    2 [ label="acc_precip_t+1<1.89647734" ]
+    2 -> 5 [label="yes" color="#FF0000"]
+    2 -> 6 [label="no, missing" color="#0000FF"]
+
+    5 [ label="acc_precip_t+1<0.764512718" ]
+    5 -> 11 [label="yes" color="#FF0000"]
+    5 -> 12 [label="no, missing" color="#0000FF"]
+
+    11 [ label="mean_relative_hum<-0.0210892931" ]
+    11 -> 23 [label="yes" color="#FF0000"]
+    11 -> 24 [label="no, missing" color="#0000FF"]
+
+    23 [ label="acc_precip_t+22<0.930257976" ]
+    23 -> 47 [label="yes" color="#FF0000"]
+    23 -> 48 [label="no, missing" color="#0000FF"]
+
+    47 [ label="fourier_cos<0.346961677" ]
+    47 -> 93 [label="yes" color="#FF0000"]
+    47 -> 94 [label="no, missing" color="#0000FF"]
+
+    93 [ label="leaf=-10.1667442" ]
+
+    94 [ label="leaf=24.3461075" ]
+
+    48 [ label="leaf=50.253521" ]
+
+    24 [ label="mean_temp<1.40237069" ]
+    24 -> 49 [label="yes" color="#FF0000"]
+    24 -> 50 [label="no, missing" color="#0000FF"]
+
+    49 [ label="mean_pressure<0.589159131" ]
+    49 -> 95 [label="yes" color="#FF0000"]
+    49 -> 96 [label="no, missing" color="#0000FF"]
+
+    95 [ label="leaf=76.7347031" ]
+
+    96 [ label="leaf=38.5059052" ]
+
+    50 [ label="acc_precip<1.24964046" ]
+    50 -> 97 [label="yes" color="#FF0000"]
+    50 -> 98 [label="no, missing" color="#0000FF"]
+
+    97 [ label="leaf=-5.61468935" ]
+
+    98 [ label="leaf=9.68287945" ]
+
+    12 [ label="acc_precip<1.73476815" ]
+    12 -> 25 [label="yes" color="#FF0000"]
+    12 -> 26 [label="no, missing" color="#0000FF"]
+
+    25 [ label="mean_pressure<-0.515253365" ]
+    25 -> 51 [label="yes" color="#FF0000"]
+    25 -> 52 [label="no, missing" color="#0000FF"]
+
+    51 [ label="acc_precip_t+14<0.44271341" ]
+    51 -> 99 [label="yes" color="#FF0000"]
+    51 -> 100 [label="no, missing" color="#0000FF"]
+
+    99 [ label="leaf=100.52372" ]
+
+    100 [ label="leaf=42.9631729" ]
+
+    52 [ label="fourier_sin<-0.745613277" ]
+    52 -> 101 [label="yes" color="#FF0000"]
+    52 -> 102 [label="no, missing" color="#0000FF"]
+
+    101 [ label="leaf=6.76792908" ]
+
+    102 [ label="leaf=63.4184227" ]
+
+    26 [ label="mean_temp<0.670740545" ]
+    26 -> 53 [label="yes" color="#FF0000"]
+    26 -> 54 [label="no, missing" color="#0000FF"]
+
+    53 [ label="fourier_cos<-1.37891495" ]
+    53 -> 103 [label="yes" color="#FF0000"]
+    53 -> 104 [label="no, missing" color="#0000FF"]
+
+    103 [ label="leaf=23.7997265" ]
+
+    104 [ label="leaf=149.407059" ]
+
+    54 [ label="acc_precip<2.21989584" ]
+    54 -> 105 [label="yes" color="#FF0000"]
+    54 -> 106 [label="no, missing" color="#0000FF"]
+
+    105 [ label="leaf=8.69262981" ]
+
+    106 [ label="leaf=79.3931427" ]
+
+    6 [ label="acc_precip<3.35186052" ]
+    6 -> 13 [label="yes" color="#FF0000"]
+    6 -> 14 [label="no, missing" color="#0000FF"]
+
+    13 [ label="acc_precip<1.89647734" ]
+    13 -> 27 [label="yes" color="#FF0000"]
+    13 -> 28 [label="no, missing" color="#0000FF"]
+
+    27 [ label="acc_precip_t+9<1.0904243" ]
+    27 -> 55 [label="yes" color="#FF0000"]
+    27 -> 56 [label="no, missing" color="#0000FF"]
+
+    55 [ label="fourier_cos<1.34339702" ]
+    55 -> 107 [label="yes" color="#FF0000"]
+    55 -> 108 [label="no, missing" color="#0000FF"]
+
+    107 [ label="leaf=137.21698" ]
+
+    108 [ label="leaf=65.7980728" ]
+
+    56 [ label="acc_precip<1.08793116" ]
+    56 -> 109 [label="yes" color="#FF0000"]
+    56 -> 110 [label="no, missing" color="#0000FF"]
+
+    109 [ label="leaf=2.88420105" ]
+
+    110 [ label="leaf=61.3692398" ]
+
+    28 [ label="acc_precip_t+2<1.73476815" ]
+    28 -> 57 [label="yes" color="#FF0000"]
+    28 -> 58 [label="no, missing" color="#0000FF"]
+
+    57 [ label="acc_precip_t+13<0.118796647" ]
+    57 -> 111 [label="yes" color="#FF0000"]
+    57 -> 112 [label="no, missing" color="#0000FF"]
+
+    111 [ label="leaf=151.066513" ]
+
+    112 [ label="leaf=55.9594803" ]
+
+    58 [ label="mean_pressure<0.513643742" ]
+    58 -> 113 [label="yes" color="#FF0000"]
+    58 -> 114 [label="no, missing" color="#0000FF"]
+
+    113 [ label="leaf=206.469833" ]
+
+    114 [ label="leaf=55.4488525" ]
+
+    14 [ label="mean_pressure<-0.0716004819" ]
+    14 -> 29 [label="yes" color="#FF0000"]
+    14 -> 30 [label="no, missing" color="#0000FF"]
+
+    29 [ label="leaf=264.676971" ]
+
+    30 [ label="mean_relative_hum<0.5220626" ]
+    30 -> 59 [label="yes" color="#FF0000"]
+    30 -> 60 [label="no, missing" color="#0000FF"]
+
+    59 [ label="acc_precip<3.99869728" ]
+    59 -> 115 [label="yes" color="#FF0000"]
+    59 -> 116 [label="no, missing" color="#0000FF"]
+
+    115 [ label="leaf=42.2208061" ]
+
+    116 [ label="leaf=-17.0924053" ]
+
+    60 [ label="acc_precip<4.16040659" ]
+    60 -> 117 [label="yes" color="#FF0000"]
+    60 -> 118 [label="no, missing" color="#0000FF"]
+
+    117 [ label="leaf=52.9550896" ]
+
+    118 [ label="leaf=186.212219" ]
+}
