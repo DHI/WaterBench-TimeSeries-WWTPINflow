@@ -12,6 +12,7 @@ def compute_errors(
     model: ForecastingModel,
     horizon: int,
     *,
+    past_covariates: Optional[TimeSeries] = None,
     future_covariates: Optional[TimeSeries] = None,
     output_transform: Optional[Callable] = None,
     is_naive: bool = False,
@@ -28,6 +29,8 @@ def compute_errors(
         kwargs = {}
         if model.supports_future_covariates:
             kwargs["future_covariates"] = future_covariates
+        if model.supports_past_covariates:
+            kwargs["past_covariates"] = past_covariates
         if model.supports_transferrable_series_prediction:
             kwargs["series"] = ts_in
         if is_naive:
