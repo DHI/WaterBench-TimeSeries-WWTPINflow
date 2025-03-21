@@ -33,7 +33,7 @@ The dataset contains the following variables; all variables have been measured a
 
 | label | Description | Units | Provider |
 | --- | --- | --- | --- |
-| FB20F11_81 | Inflow of WWTP | m^3/h | TwinPlant |
+| flow | Inflow of WWTP | m^3/h | TwinPlant |
 | acc_precip | Accumulated precipitation | mm | DMI |
 | mean_pressure | Mean pressure | hPa | DMI |
 | mean_radiation | Mean radiation (spectral range: 305-2800nm) | W/m^2 | DMI |

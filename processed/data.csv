@@ -1,4 +1,4 @@
-time,FB20F11_81,acc_precip,mean_pressure,mean_radiation,mean_relative_hum,mean_temp,temp_grass,temp_soil_10,temp_soil_30
+time,flow,acc_precip,mean_pressure,mean_radiation,mean_relative_hum,mean_temp,temp_grass,temp_soil_10,temp_soil_30
 2023-09-21 10:00:00,974.4523333333332,,,,,,,,
 2023-09-21 11:00:00,975.1954366700713,,,,,,,,
 2023-09-21 12:00:00,975.9385400068095,0.0,998.2,210.0,71.7,20.4,19.4,15.0,14.7
