@@ -9,7 +9,7 @@ The dataset contains approximately 18 months of hourly observations. The exact l
 The data in this repository are organized as follows
 
 - `observations` contains all the relevant data. Each file in this folder contains measurements from a diferent source
-- `processed` contains the matched data with minimal preprocessing as described [here](./code/overview.ipynb)
+- `processed` contains the matched data with minimal preprocessing as described [here](./code/0_overview.ipynb)
 - `code` contains _jupyter_ notebooks and scripts to present and explore the data as well as helper functions used in those notebooks
 
 Separately from the current repository, in [Zenodo]() you can find:
@@ -38,8 +38,8 @@ This repository is aimed at supporting educational, research, and exploratory ac
 
 - __Experimenting__ with time series models for forecasting
 - __Benchmarking__ machine learning models
-    - In this [notebook](./code/data_split.ipynb), we suggest a data split to guarantee a consistent benchmark for new ML models
-    - [Here](./code/baseline.ipynb) a simple baseline is established and [here](./code/xgboost.ipynb) we include a modelling exercise
+    - In this [notebook](./code/1_data_split.ipynb), we suggest a data split to guarantee a consistent benchmark for new ML models
+    - [Here](./code/2_baseline.ipynb) a simple baseline is established and [here](./code/example_modelling.ipynb) we include a modelling exercise
 
 
 ## Usage rights
