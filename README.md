@@ -10,8 +10,7 @@ The data in this repository are organized as follows
 
 - `observations` contains all the relevant data. Each file in this folder contains measurements from a diferent source
 - `processed` contains the matched data with minimal preprocessing as described [here](./code/overview.ipynb)
-- `code` contains _jupyter_ notebooks and scripts to explore the data as well as helper functions used in those notebooks
-    - In addition, we include a [notebook](./code/xgboost.ipynb) with a modelling exercise
+- `code` contains _jupyter_ notebooks and scripts to present and explore the data as well as helper functions used in those notebooks
 
 Separately from the current repository, in [Zenodo]() you can find:
 - [...]

@@ -1,7 +1,16 @@
 [project]
 name = "waterbench-timeseries-wwtpinflow"
 version = "0.1.0"
-description = "Add your description here"
+description = "Time series data captured at a waste water treatment plant"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "ipywidgets",
+    "numpy",
+    "matplotlib",
+    "pandas",
+    "darts",
+    "scikit-learn",
+    "scipy",
+    "seaborn",
+]
