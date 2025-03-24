@@ -2,7 +2,7 @@
 
 This repository provides access to measurements of the water inflow to a waster water treatment plant (WWTP) from Denmark. The data is accompanied by measurements of relevant climate variables captured by a weather station near the WWTP.
 
-The dataset contains approximately 18 months of hourly observations. The exact locations of the WWTP and weather station are confidential.
+The dataset contains approximately 16 months of hourly observations. The exact locations of the WWTP and weather station are confidential.
 
 ## Folder structure
 
