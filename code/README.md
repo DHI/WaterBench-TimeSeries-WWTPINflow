@@ -6,4 +6,8 @@ This module contains three notebooks that start with a number:
 - [1_data_split](1_data_split.ipynb) suggests a train/test split to guarantee a consistent comparison between models
 - [2_baseline](2_baseline.ipynb) introduces a simple baseline model
 
-These notebooks are supposed to be read in ascending order. The two remaining notebooks include a modelling exercise to showcase how to use this repository can be used. They introduce potential feature transformations to enhance the predictive power of the data provided as well an implementation of an XGBOOST model.
+These notebooks are supposed to be read in ascending order.
+
+The two remaining notebooks include a modelling exercise to showcase how to use this repository can be used. They introduce potential feature transformations to enhance the predictive power of the data provided as well an implementation of an XGBOOST model.
+
+Finally, [utils](utils.py) contains helper functions used in some of the notebooks.
