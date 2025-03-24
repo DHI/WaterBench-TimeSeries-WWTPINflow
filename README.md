@@ -1,16 +1,8 @@
 # Inflow from a waster water treatment plant
 
-This repository provides access to measurements of the water inflow to a waster water treatment plant (WWTP). The data is accompanied by observations of relevant climate variables near the WWTP.
+This repository provides access to measurements of the water inflow to a waster water treatment plant (WWTP) from Denmark. The data is accompanied by measurements of relevant climate variables captured by a weather station near the WWTP.
 
 The dataset contains approximately 18 months of hourly observations. The exact locations of the WWTP and weather station are confidential.
-
-## Intended use
-
-This repository is aimed at supporting educational, research, and exploratory activities, such as:
-
-- Experimenting with time series models for forecasting
-- Benchmarking machine learning models
-- [...]
 
 ## Folder structure
 
@@ -25,7 +17,7 @@ Separately from the current repository, in [Zenodo]() you can find:
 - [...]
 
 
-### Data description
+## Data description
 
 The dataset contains the following variables; all variables have been measured at hourly resolution.
 
@@ -40,6 +32,16 @@ The dataset contains the following variables; all variables have been measured a
 | temp_grass | Temperature at grass height | °C | DMI |
 | temp_soil_10 | Temperature at 10 cm underground | °C | DMI |
 | temp_soil_30 | Temperature at 30 cm underground |  °C| DMI |
+
+## Intended use
+
+This repository is aimed at supporting educational, research, and exploratory activities, such as:
+
+- __Experimenting__ with time series models for forecasting
+- __Benchmarking__ machine learning models
+    - In this [notebook](./code/data_split.ipynb), we suggest a data split to guarantee a consistent benchmark for new ML models
+    - [Here](./code/baseline.ipynb) a simple baseline is established and [here](./code/xgboost.ipynb) we include a modelling exercise
+
 
 ## Usage rights
 
