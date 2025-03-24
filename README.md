@@ -11,6 +11,7 @@ The data in this repository are organized as follows
 - `observations` contains all the relevant data. Each file in this folder contains measurements from a diferent source
 - `processed` contains the matched data with minimal preprocessing as described [here](./code/0_overview.ipynb)
 - `code` contains _jupyter_ notebooks and scripts to present and explore the data as well as helper functions used in those notebooks
+    - You can refer to [here](.code/README.md) for more details on this section of the repository
 
 Separately from the current repository, in [Zenodo]() you can find:
 - [...]
