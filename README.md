@@ -11,7 +11,7 @@ The data in this repository are organized as follows
 - `observations` contains all the relevant data. Each file in this folder contains measurements from a diferent source
 - `processed` contains the matched data with minimal preprocessing as described [here](./code/0_overview.ipynb)
 - `code` contains _jupyter_ notebooks and scripts to present and explore the data as well as helper functions used in those notebooks
-    - You can refer to [here](.code/README.md) for more details on this section of the repository
+    - You can consult [here](.code/README.md) to have more details on this section
 
 Separately from the current repository, in [Zenodo]() you can find:
 - [...]
@@ -38,10 +38,9 @@ The dataset contains the following variables; all variables have been measured a
 This repository is aimed at supporting educational, research, and exploratory activities, such as:
 
 - __Experimenting__ with time series models for forecasting
-- __Benchmarking__ machine learning models
-    - In this [notebook](./code/1_data_split.ipynb), we suggest a data split to guarantee a consistent benchmark for new ML models
-    - [Here](./code/2_baseline.ipynb) a simple baseline is established and [here](./code/example_modelling.ipynb) we include a modelling exercise
+- __Benchmarking__ machine learning (ML) models
 
+Importantly, the resources in the repository are limited to non-commercial purposes.
 
 ## Usage rights
 
