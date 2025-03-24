@@ -2,11 +2,14 @@
 
 This repository provides access to measurements of the water inflow to a waster water treatment plant (WWTP). The data is accompanied by observations of relevant climate variables near the WWTP.
 
+The dataset contains approximately 18 months of hourly observations. The exact locations of the WWTP and weather station are confidential.
+
 ## Intended use
 
-The dataset is aimed at supporting educational, research, and exploratory activities, such as:
+This repository is aimed at supporting educational, research, and exploratory activities, such as:
 
 - Experimenting with time series models for forecasting
+- Benchmarking machine learning models
 - [...]
 
 ## Folder structure
@@ -14,14 +17,12 @@ The dataset is aimed at supporting educational, research, and exploratory activi
 The data in this repository are organized as follows
 
 - `observations` contains all the relevant data. Each file in this folder contains measurements from a diferent source
-- `code` contains _jupyter_ notebooks exploring the dataset
-- `figures` contains relevant images
+- `processed` contains the matched data with minimal preprocessing as described [here](./code/overview.ipynb)
+- `code` contains _jupyter_ notebooks and scripts to explore the data as well as helper functions used in those notebooks
+    - In addition, we include a [notebook](./code/xgboost.ipynb) with a modelling exercise
 
 Separately from the current repository, in [Zenodo]() you can find:
 - [...]
-
-
-## Introduction
 
 
 ### Data description
@@ -30,7 +31,7 @@ The dataset contains the following variables; all variables have been measured a
 
 | label | Description | Units | Provider |
 | --- | --- | --- | --- |
-| flow | Inflow of WWTP | m^3/h | TwinPlant |
+| flow | Inflow of WWTP | m^3/h | - |
 | acc_precip | Accumulated precipitation | mm | DMI |
 | mean_pressure | Mean pressure | hPa | DMI |
 | mean_radiation | Mean radiation (spectral range: 305-2800nm) | W/m^2 | DMI |

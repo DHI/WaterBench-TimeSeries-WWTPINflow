@@ -7,6 +7,17 @@ from darts import TimeSeries
 from darts.models.forecasting.forecasting_model import ForecastingModel
 
 
+def holt_smoother(x: np.array, alpha: float) -> np.array:
+    # https://empslocal.ex.ac.uk/people/staff/dbs202/cag/courses/MT37C/course/node102.html
+    y = np.zeros_like(x)
+    y[0] = x[0]
+
+    for t in range(1, len(x)):
+        y[t] = alpha * x[t] + (1 - alpha) * y[t - 1]
+
+    return y
+
+
 def compute_errors(
     ts: TimeSeries,
     model: ForecastingModel,
