@@ -8,6 +8,6 @@ This module contains three notebooks that start with a number:
 
 These notebooks are supposed to be read in ascending order.
 
-The two remaining notebooks include a modelling exercise to showcase how to use this repository can be used. They introduce potential feature transformations to enhance the predictive power of the data provided as well an implementation of an XGBOOST model.
+The two remaining notebooks include a modelling exercise to showcase how to use this repository can be used. They introduce potential feature transformations to enhance the predictive power of the data and an implementation of an XGBOOST model.
 
 Finally, [utils](utils.py) contains helper functions used in some of the notebooks.

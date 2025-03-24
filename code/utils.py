@@ -28,6 +28,7 @@ def compute_errors(
     output_transform: Optional[Callable] = None,
     is_naive: bool = False,
 ) -> pd.DataFrame:
+    """Computes forecasting errors for passed time series data. The results are sorted by lead time."""
     lags = [-l for l in model.extreme_lags if l is not None and l < 0]  # noqa: E741
     n_lags = max(lags)
 
