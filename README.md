@@ -1,17 +1,19 @@
-# Inflow from a waster water treatment plant
+# Inflow to a Waste Water Treatment Plant
 
-This repository provides access to measurements of the water inflow to a waster water treatment plant (WWTP) from Denmark. The data is accompanied by measurements of relevant climate variables captured by a weather station near the WWTP.
+This repository provides access to measurements of the combined sewage inflow to a Waste Water Treatment Plant (WWTP) located in Denmark. The data is accompanied by measurements of relevant metereological variables captured by a weather station near the WWTPa and provided by the Danish Metereological Institute (DMI).
 
-The dataset contains approximately 16 months of hourly observations. The exact locations of the WWTP and weather station are confidential.
+The dataset contains approximately 15 months of hourly observations. The exact location of the WWTP and weather station are omitted.
+
+**license info missing for the inflow timeseries**
 
 ## Folder structure
 
-The data in this repository are organized as follows
+The data in this repository are organized as follows:
 
-- `observations` contains all the relevant data. Each file in this folder contains measurements from a diferent source
+- `observations` contains all the measurements, split in two files respectively for the flow and metereological data
 - `processed` contains the matched data with minimal preprocessing as described [here](./code/0_overview.ipynb)
 - `code` contains _jupyter_ notebooks and scripts to present and explore the data as well as helper functions used in those notebooks
-    - You can consult [here](.code/README.md) to have more details on this section
+    - More details on the code are provided in a separate [file](.code/README.md)
 
 Separately from the current repository, in [Zenodo]() you can find:
 - [...]
@@ -19,14 +21,14 @@ Separately from the current repository, in [Zenodo]() you can find:
 
 ## Data description
 
-The dataset contains the following variables; all variables have been measured at hourly resolution.
+The dataset contains the following variables, all measured at hourly resolution.
 
 | label | Description | Units | Provider |
 | --- | --- | --- | --- |
-| flow | Inflow of WWTP | m^3/h | - |
+| flow | Inflow to WWTP | m<sup>3</sup>/h | (confidential) |
 | acc_precip | Accumulated precipitation | mm | DMI |
 | mean_pressure | Mean pressure | hPa | DMI |
-| mean_radiation | Mean radiation (spectral range: 305-2800nm) | W/m^2 | DMI |
+| mean_radiation | Mean radiation (spectral range: 305-2800nm) | W/m<sup>2 | DMI |
 | mean_relative_hum | Mean relative humidity | % | DMI |
 | mean_temp | Mean air temperature | °C | DMI |
 | temp_grass | Temperature at grass height | °C | DMI |
