@@ -5,12 +5,14 @@ description = "Time series data captured at a waste water treatment plant"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "nbformat",
+    "ipykernel",
     "ipywidgets",
-    "numpy",
     "matplotlib",
-    "pandas",
-    "darts",
-    "scikit-learn",
+    "darts>=0.34",
     "scipy",
     "seaborn",
 ]
+
+[tool.setuptools.packages.find]
+exclude = ['code*', 'show*', 'processed*', 'observations*']

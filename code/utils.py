@@ -43,7 +43,7 @@ def compute_errors(
             kwargs["future_covariates"] = future_covariates
         if model.supports_past_covariates:
             kwargs["past_covariates"] = past_covariates
-        if model.supports_transferrable_series_prediction:
+        if model.supports_transferable_series_prediction:
             kwargs["series"] = ts_in
         if is_naive:
             # Naive models can only _continue_ the series they have been trained on
