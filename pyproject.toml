@@ -5,6 +5,7 @@ description = "Time series data captured at a waste water treatment plant"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "ipykernel",
     "ipywidgets",
     "numpy",
     "matplotlib",
