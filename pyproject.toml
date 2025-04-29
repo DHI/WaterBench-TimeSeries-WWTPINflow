@@ -9,7 +9,7 @@ dependencies = [
     "ipykernel",
     "ipywidgets",
     "matplotlib",
-    "darts",
+    "darts>=0.34",
     "scipy",
     "seaborn",
 ]
