@@ -46,7 +46,7 @@ Importantly, the resources in the repository are limited to non-commercial purpo
 
 ## Usage rights
 
-This data is subject to the Creative Commons license CC BY. You can read more about the license terms [here](https://creativecommons.org/licenses/by/4.0/legalcode.en) or in DMI's free data [page](https://www.dmi.dk/friedata/guides-til-frie-data/vilkar-for-brug-af-data) (in danish). 
+This data is subject to the Creative Commons license CC BY. You can read more about the license terms [here](https://creativecommons.org/licenses/by-nc/4.0/deed.en) or in DMI's free data [page](https://www.dmi.dk/friedata/guides-til-frie-data/vilkar-for-brug-af-data) (in danish). 
 
 In short, you are free to:
 
