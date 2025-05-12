@@ -119,10 +119,8 @@ def get_rmse(errors: pd.DataFrame):
     )
 
 
-def generate_baseline_df(
-    ts: TimeSeries, n_lags: int, output_chunk_length: int
-) -> pd.DataFrame:
-    naive = NaiveMovingAverage(input_chunk_length=n_lags)
+def generate_baseline_df(ts: TimeSeries, output_chunk_length: int) -> pd.DataFrame:
+    naive = NaiveMovingAverage(input_chunk_length=8)
     naive_errors = compute_errors(ts, naive, output_chunk_length, is_naive=True)
 
     return pd.DataFrame(
@@ -141,6 +139,28 @@ def assemble_comparison(candidates: List[pd.DataFrame]) -> pd.DataFrame:
         .reset_index()
         .melt(id_vars=["lead_time", "model"], var_name="metric")
     )
+
+
+def compare_model_with_baseline(
+    ts, past_covariates, future_covariates, model, horizon
+) -> pd.DataFrame:
+    candidate_errors = compute_errors(
+        ts,
+        model,
+        horizon,
+        past_covariates=past_covariates,
+        future_covariates=future_covariates,
+    )
+    df_candidate = pd.DataFrame(
+        {
+            "RMSE": get_rmse(candidate_errors),
+            "MAPE": get_mape(candidate_errors),
+            "model": "xgb",
+        }
+    )
+
+    df_baseline = generate_baseline_df(ts, horizon)
+    return assemble_comparison([df_baseline, df_candidate])
 
 
 #################
@@ -275,3 +295,29 @@ def visualize_example_measurements():
 
     axes[0].legend().set_visible(False), axes[1].legend().set_visible(False)
     axes[0].set_ylabel("Flow [m^3/h]"), axes[1].set_ylabel("Acc. Precip. [mm]")
+
+
+def split_past_future_covariates(
+    features: TimeSeries | List[TimeSeries],
+) -> Tuple[TimeSeries, TimeSeries] | Tuple[List[TimeSeries], List[TimeSeries]]:
+    def is_future(variable_name: str) -> bool:
+        # Function to identify future covariates. In this example, we define
+        # polynomial features based on precipitation and the day of week as future covariates
+        future_tags = ["polyfeature_", "dow_"]
+        return any(sub in variable_name for sub in future_tags)
+
+    if isinstance(features, TimeSeries):
+        feature_labels = features.components
+        past_components = [c for c in feature_labels if not is_future(c)]
+        future_components = [c for c in feature_labels if is_future(c)]
+
+        return features[past_components], features[future_components]
+    else:
+        feature_labels = list(features[0].components)
+        past_components = [c for c in feature_labels if not is_future(c)]
+        future_components = [c for c in feature_labels if is_future(c)]
+
+        selected_past_covariates = [s[past_components] for s in features]
+        selected_future_covariates = [s[future_components] for s in features]
+
+        return selected_past_covariates, selected_future_covariates
