@@ -163,6 +163,32 @@ def compare_model_with_baseline(
     return assemble_comparison([df_baseline, df_candidate])
 
 
+def find_flat_periods(series: pd.Series, min_span_length: int, min_delta: float):
+    """
+    Find periods where the value of the series does not change at least `min_delta` within `min_span_length` steps.
+
+    Returns:
+    List of tuples: Each tuple contains the start and end index of a stable period.
+    """
+    stable_periods = []
+    start_idx = None
+
+    for i in range(len(series) - 1):
+        if abs(series.iloc[i + 1] - series.iloc[i]) < min_delta:
+            if start_idx is None:
+                start_idx = i
+        else:
+            if start_idx is not None and i - start_idx > min_span_length:
+                stable_periods.append((start_idx, i - 1))
+            start_idx = None
+
+    # Capture any ongoing stable period at the end
+    if start_idx is not None:
+        stable_periods.append((start_idx, len(series) - 1))
+
+    return stable_periods
+
+
 #################
 # EXAMPLE UTILS #
 #################
@@ -297,7 +323,7 @@ def visualize_example_measurements():
     axes[0].set_ylabel("Flow [m^3/h]"), axes[1].set_ylabel("Acc. Precip. [mm]")
 
 
-def split_past_future_covariates(
+def example_split_past_future_covariates(
     features: TimeSeries | List[TimeSeries],
 ) -> Tuple[TimeSeries, TimeSeries] | Tuple[List[TimeSeries], List[TimeSeries]]:
     def is_future(variable_name: str) -> bool:
