@@ -211,7 +211,7 @@ def example_pipeline(ts: TimeSeries) -> TimeSeries:
     TimeSeries
         Expanded timeseries after adding features
     """
-    n_hours = 24 * 5
+    n_hours = 24
     deg = 3  # polynomial degree
 
     # We use our future precipitation observations as a "perfect forecast"
