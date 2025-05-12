@@ -13,134 +13,6 @@ from darts.models import NaiveMovingAverage
 from darts.models.forecasting.forecasting_model import ForecastingModel
 
 
-def example_train_test_data() -> Tuple[pd.DataFrame, pd.DataFrame]:
-    """Get data to make a modelling example. The selected data period is based
-    on prior data analysis and is fixed to data from 01/03/2024 to 17/04/2024
-    since we want to test our models with a long-enough continuous period
-    that experienced significant rainfall.
-
-    Returns
-    -------
-    Tuple[pd.DataFrame, pd.DataFrame]
-        Train and test split for test data
-    """
-    data_path = "../processed/data.csv"
-
-    start_test_period = pd.Timestamp(day=1, month=3, year=2024, hour=7)
-    end_test_period = pd.Timestamp(day=17, month=4, year=2024, hour=11)
-
-    data = pd.read_csv(data_path, index_col=0, parse_dates=True)
-
-    test_mask = data.index.to_series().between(
-        start_test_period, end_test_period, inclusive="both"
-    )
-    train_mask = ~test_mask
-
-    train_data = data[train_mask].copy()
-    test_data = data[test_mask].copy()
-
-    # The temperature at grass level and 30 cm below the surface have
-    # a big gap at the end. Since we have other temperature measurements,
-    # e.g. `mean_temp` and `temp_soil_10`, we discard the following to
-    # preserve as many samples as possible.
-    faulty_variables = ["temp_grass", "temp_soil_30"]
-    train_data.drop(columns=faulty_variables, inplace=True)
-    test_data.drop(columns=faulty_variables, inplace=True)
-
-    return train_data, test_data
-
-
-def example_train_subseries() -> List[TimeSeries]:
-    min_ts_length = 24 * 7
-    train_data, _ = example_train_test_data()
-    train_ts = TimeSeries.from_dataframe(train_data, freq="h")
-    subseries = extract_subseries(train_ts, mode="any")
-
-    return [s for s in subseries if len(s) >= min_ts_length]
-
-
-def example_test_series() -> TimeSeries:
-    _, test_data = example_train_test_data()
-    return TimeSeries.from_dataframe(test_data)
-
-
-def example_pipeline(ts: TimeSeries) -> TimeSeries:
-    """We transform the dataset by:
-        - Including a smoothed rain
-        - The value of the parameter $\alpha$ is based on the correlation study and simple trial and error to minimize forecasting error
-        - Including polynomial functions of the weather features
-        - Including datetime features, using one hot encoding
-
-    Returns
-    -------
-    TimeSeries
-        Expanded timeseries after adding features
-    """
-    alpha = 0.2  # smoothing coefficient
-    deg = 3  # polynomial degree
-
-    # We use our future precipitation observations as a "perfect forecast"
-    future_components = [
-        "acc_precip",
-        "smooth_precip",
-    ]
-
-    ts = add_smoothed_precip(ts, alpha)
-    ts1 = generate_poly_ts(ts[future_components], deg)
-    ts2 = generate_datetime_ts(ts)
-
-    return ts.drop_columns(future_components).concatenate(
-        ts1.concatenate(ts2, axis=1), axis=1
-    )
-
-
-def example_target_and_features(
-    ts: TimeSeries | List[TimeSeries], target_var: str
-) -> Tuple[TimeSeries, TimeSeries] | Tuple[List[TimeSeries], List[TimeSeries]]:
-    if isinstance(ts, TimeSeries):
-        target_ts = ts[target_var]
-        features = ts.drop_columns(target_var)
-        expanded_features = example_pipeline(features)
-    else:
-        target_ts = [s[target_var] for s in ts]
-        subts = [s.drop_columns(target_var) for s in ts]
-        expanded_features = []
-        for s in subts:
-            expanded_features.append(example_pipeline(s))
-
-    return target_ts, expanded_features
-
-
-def visualize_example_measurements():
-    subseries = example_train_subseries()
-    test_ts = example_test_series()
-
-    fig, axes = plt.subplots(2, 1, figsize=(15, 5), sharex=True)
-    for s in subseries:
-        s["flow"].plot(ax=axes[0], linewidth=0.8)
-        s["acc_precip"].plot(ax=axes[1], linewidth=0.8)
-
-    test_ts["flow"].plot(linewidth=0.8, ax=axes[0], color="lime")
-    test_ts["acc_precip"].plot(linewidth=0.8, ax=axes[1], color="lime")
-
-    start_test = test_ts.time_index[0]
-    end_test = test_ts.time_index[-1]
-
-    for j in [0, 1]:
-        axes[j].axvspan(start_test, end_test, color="grey", alpha=0.3)
-        axes[j].text(
-            start_test + (end_test - start_test) / 2,
-            2.5,
-            "TEST",
-            ha="center",
-            va="center",
-            fontsize=12,
-        )
-
-    axes[0].legend().set_visible(False), axes[1].legend().set_visible(False)
-    axes[0].set_ylabel("Flow [m^3/h]"), axes[1].set_ylabel("Acc. Precip. [mm]")
-
-
 def holt_smoother(x: np.array, alpha: float) -> np.array:
     # https://empslocal.ex.ac.uk/people/staff/dbs202/cag/courses/MT37C/course/node102.html
     y = np.zeros_like(x)
@@ -291,3 +163,136 @@ def assemble_comparison(candidates: List[pd.DataFrame]) -> pd.DataFrame:
         .reset_index()
         .melt(id_vars=["lead_time", "model"], var_name="metric")
     )
+
+
+#################
+# EXAMPLE UTILS #
+#################
+
+
+def example_train_test_data() -> Tuple[pd.DataFrame, pd.DataFrame]:
+    """Get data to make a modelling example. The selected data period is based
+    on prior data analysis and is fixed to data from 01/03/2024 to 17/04/2024
+    since we want to test our models with a long-enough continuous period
+    that experienced significant rainfall.
+
+    Returns
+    -------
+    Tuple[pd.DataFrame, pd.DataFrame]
+        Train and test split for test data
+    """
+    data_path = "../processed/data.csv"
+
+    start_test_period = pd.Timestamp(day=1, month=3, year=2024, hour=7)
+    end_test_period = pd.Timestamp(day=17, month=4, year=2024, hour=11)
+
+    data = pd.read_csv(data_path, index_col=0, parse_dates=True)
+
+    test_mask = data.index.to_series().between(
+        start_test_period, end_test_period, inclusive="both"
+    )
+    train_mask = ~test_mask
+
+    train_data = data[train_mask].copy()
+    test_data = data[test_mask].copy()
+
+    # The temperature at grass level and 30 cm below the surface have
+    # a big gap at the end. Since we have other temperature measurements,
+    # e.g. `mean_temp` and `temp_soil_10`, we discard the following to
+    # preserve as many samples as possible.
+    faulty_variables = ["temp_grass", "temp_soil_30"]
+    train_data.drop(columns=faulty_variables, inplace=True)
+    test_data.drop(columns=faulty_variables, inplace=True)
+
+    return train_data, test_data
+
+
+def example_train_subseries() -> List[TimeSeries]:
+    min_ts_length = 24 * 7
+    train_data, _ = example_train_test_data()
+    train_ts = TimeSeries.from_dataframe(train_data, freq="h")
+    subseries = extract_subseries(train_ts, mode="any")
+
+    return [s for s in subseries if len(s) >= min_ts_length]
+
+
+def example_test_series() -> TimeSeries:
+    _, test_data = example_train_test_data()
+    return TimeSeries.from_dataframe(test_data)
+
+
+def example_pipeline(ts: TimeSeries) -> TimeSeries:
+    """We transform the dataset by:
+        - Including a smoothed rain
+        - The value of the parameter $\alpha$ is based on the correlation study and simple trial and error to minimize forecasting error
+        - Including polynomial functions of the weather features
+        - Including datetime features, using one hot encoding
+
+    Returns
+    -------
+    TimeSeries
+        Expanded timeseries after adding features
+    """
+    alpha = 0.2  # smoothing coefficient
+    deg = 3  # polynomial degree
+
+    # We use our future precipitation observations as a "perfect forecast"
+    future_components = [
+        "acc_precip",
+        "smooth_precip",
+    ]
+
+    ts = add_smoothed_precip(ts, alpha)
+    ts1 = generate_poly_ts(ts[future_components], deg)
+    ts2 = generate_datetime_ts(ts)
+
+    return ts.drop_columns(future_components).concatenate(
+        ts1.concatenate(ts2, axis=1), axis=1
+    )
+
+
+def example_target_and_features(
+    ts: TimeSeries | List[TimeSeries], target_var: str
+) -> Tuple[TimeSeries, TimeSeries] | Tuple[List[TimeSeries], List[TimeSeries]]:
+    if isinstance(ts, TimeSeries):
+        target_ts = ts[target_var]
+        features = ts.drop_columns(target_var)
+        expanded_features = example_pipeline(features)
+    else:
+        target_ts = [s[target_var] for s in ts]
+        subts = [s.drop_columns(target_var) for s in ts]
+        expanded_features = []
+        for s in subts:
+            expanded_features.append(example_pipeline(s))
+
+    return target_ts, expanded_features
+
+
+def visualize_example_measurements():
+    subseries = example_train_subseries()
+    test_ts = example_test_series()
+
+    fig, axes = plt.subplots(2, 1, figsize=(15, 5), sharex=True)
+    for s in subseries:
+        s["flow"].plot(ax=axes[0], linewidth=0.8)
+        s["acc_precip"].plot(ax=axes[1], linewidth=0.8)
+
+    test_ts["flow"].plot(linewidth=0.8, ax=axes[0], color="lime")
+    test_ts["acc_precip"].plot(linewidth=0.8, ax=axes[1], color="lime")
+
+    start_test = test_ts.time_index[0]
+    end_test = test_ts.time_index[-1]
+
+    for j in [0, 1]:
+        axes[j].axvspan(start_test, end_test, color="grey", alpha=0.3)
+        axes[j].text(
+            start_test + (end_test - start_test) / 2,
+            2.5,
+            "TEST",
+            ha="center",
+            va="center",
+            fontsize=12,
+        )
+
+    axes[0].legend().set_visible(False), axes[1].legend().set_visible(False)
+    axes[0].set_ylabel("Flow [m^3/h]"), axes[1].set_ylabel("Acc. Precip. [mm]")
