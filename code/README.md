@@ -3,7 +3,6 @@
 This module contains three notebooks that start with a number:
 
 - [0_overview](0_overview.ipynb) provides an overview of the data and includes a brief analysis of variable correlations and time series patterns
-- [1_data_split](1_data_split.ipynb) suggests a train/test split to guarantee a consistent comparison between models
 - [2_baseline](2_baseline.ipynb) introduces a simple baseline model
 
 These notebooks are supposed to be read in ascending order.

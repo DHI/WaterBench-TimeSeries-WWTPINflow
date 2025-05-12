@@ -1,10 +1,39 @@
 import numpy as np
 import pandas as pd
 
-from typing import Optional, Callable
+from typing import Optional, Callable, Tuple
 
 from darts import TimeSeries
 from darts.models.forecasting.forecasting_model import ForecastingModel
+
+
+def example_train_test_data() -> Tuple[pd.DataFrame, pd.DataFrame]:
+    """Get data to make a modelling example. The selected data period is based
+    on prior data analysis and is fixed to data from 01/03/2024 to 17/04/2024
+    since we want to test our models with a long-enough continuous period
+    that experienced significant rainfall.
+
+    Returns
+    -------
+    Tuple[pd.DataFrame, pd.DataFrame]
+        Train and test split for test data
+    """
+    data_path = "../processed/data.csv"
+
+    start_test_period = pd.Timestamp(day=1, month=3, year=2024, hour=7)
+    end_test_period = pd.Timestamp(day=17, month=4, year=2024, hour=11)
+
+    data = pd.read_csv(data_path, index_col=0, parse_dates=True)
+
+    test_mask = data.index.to_series().between(
+        start_test_period, end_test_period, inclusive="both"
+    )
+    train_mask = ~test_mask
+
+    train_data = data[train_mask].copy()
+    test_data = data[test_mask].copy()
+
+    return train_data, test_data
 
 
 def holt_smoother(x: np.array, alpha: float) -> np.array:
