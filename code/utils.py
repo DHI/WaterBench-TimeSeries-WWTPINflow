@@ -13,17 +13,6 @@ from darts.models import NaiveMovingAverage
 from darts.models.forecasting.forecasting_model import ForecastingModel
 
 
-def holt_smoother(x: np.array, alpha: float) -> np.array:
-    # https://empslocal.ex.ac.uk/people/staff/dbs202/cag/courses/MT37C/course/node102.html
-    y = np.zeros_like(x)
-    y[0] = x[0]
-
-    for t in range(1, len(x)):
-        y[t] = alpha * x[t] + (1 - alpha) * y[t - 1]
-
-    return y
-
-
 def generate_onehot_dayofweek_ts(ts: TimeSeries) -> TimeSeries:
     """Generates time series of date time features using one hot encoding"""
     dayofweek = (
@@ -51,12 +40,10 @@ def generate_poly_ts(ts: TimeSeries, degree: int) -> TimeSeries:
     )
 
 
-def add_smoothed_precip(ts: TimeSeries, alpha: float) -> TimeSeries:
-    lp_precip = holt_smoother(ts["acc_precip"].values().ravel(), alpha)
-    ts_lp = TimeSeries.from_series(
-        pd.Series(lp_precip, index=ts.time_index, name="smooth_precip")
-    )
-    return ts.concatenate(ts_lp, axis=1)
+def add_smooth_precip(ts: TimeSeries, n_days: int) -> TimeSeries:
+    acc_precip = ts["acc_precip"].to_series().rolling(n_days).sum()
+    acc_precip.name = "smooth_precip"
+    return ts.concatenate(TimeSeries.from_series(acc_precip), axis=1)
 
 
 def compute_errors(
@@ -224,7 +211,7 @@ def example_pipeline(ts: TimeSeries) -> TimeSeries:
     TimeSeries
         Expanded timeseries after adding features
     """
-    alpha = 0.2  # smoothing coefficient
+    n_hours = 24 * 5
     deg = 3  # polynomial degree
 
     # We use our future precipitation observations as a "perfect forecast"
@@ -233,7 +220,8 @@ def example_pipeline(ts: TimeSeries) -> TimeSeries:
         "smooth_precip",
     ]
 
-    ts = add_smoothed_precip(ts, alpha)
+    ts = add_smooth_precip(ts, n_hours)
+    ts = ts.drop_before(ts.time_index[n_hours])
     ts1 = generate_poly_ts(ts[future_components], deg)
     ts2 = generate_onehot_dayofweek_ts(ts)
 
