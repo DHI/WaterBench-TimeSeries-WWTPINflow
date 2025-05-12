@@ -1,23 +1,19 @@
 # Inflow to a Waste Water Treatment Plant
 
-This repository provides access to measurements of the combined sewage inflow to a Waste Water Treatment Plant (WWTP) located in Denmark. The data is accompanied by measurements of relevant metereological variables captured by a weather station near the WWTPa and provided by the Danish Metereological Institute (DMI).
+Accurate forecasting of the expected inflow—at least 12 hours in advance—is essential for the wastewater treatment plant (WWTP) to optimize its processes. Historical inflow data and recorded precipitation are clearly important predictors. However, incorporating additional variables—such as time of year, time of day, air pressure, air temperature, and soil temperature—can provide valuable context and potentially enhance the accuracy of the forecast.
 
-The dataset contains approximately 15 months of hourly observations. The exact location of the WWTP and weather station are omitted.
+This repository provides data to support the investigation of this problem, including measurements of the combined sewage inflow to a wastewater treatment plant (WWTP) in Denmark. The data is accompanied by measurements of relevant meteorological variables captured by a weather station near the WWTP and provided by the Danish meteorological Institute (DMI).
 
-**license info missing for the inflow timeseries**
+The dataset contains approximately 15 months of hourly observations. The exact location of the WWTP and weather station are omitted to anonymize the dataset.
 
 ## Folder structure
 
 The data in this repository are organized as follows:
 
-- `observations` contains all the measurements, split in two files respectively for the flow and metereological data
+- `observations` contains all the measurements, split in two files respectively for the flow and meteorological data
 - `processed` contains the matched data with minimal preprocessing as described [here](./code/0_overview.ipynb)
 - `code` contains _jupyter_ notebooks and scripts to present and explore the data as well as helper functions used in those notebooks
     - More details on the code are provided in a separate [file](.code/README.md)
-
-Separately from the current repository, in [Zenodo]() you can find:
-- [...]
-
 
 ## Data description
 
