@@ -24,24 +24,15 @@ def holt_smoother(x: np.array, alpha: float) -> np.array:
     return y
 
 
-def generate_datetime_ts(ts: TimeSeries) -> TimeSeries:
+def generate_onehot_dayofweek_ts(ts: TimeSeries) -> TimeSeries:
     """Generates time series of date time features using one hot encoding"""
     dayofweek = (
         pd.get_dummies(ts.time_index.day_of_week)
         .rename(columns=lambda x: f"dow_{x}")
         .set_index(ts.time_index)
     )
-    hours = (
-        pd.get_dummies(ts.time_index.hour)
-        .rename(columns=lambda x: f"hour_{x}")
-        .set_index(ts.time_index)
-    )
 
-    datetime_features = dayofweek.merge(
-        hours, left_index=True, right_index=True
-    ).astype(int)
-
-    return TimeSeries.from_dataframe(datetime_features)
+    return TimeSeries.from_dataframe(dayofweek)
 
 
 def generate_poly_ts(ts: TimeSeries, degree: int) -> TimeSeries:
@@ -244,7 +235,7 @@ def example_pipeline(ts: TimeSeries) -> TimeSeries:
 
     ts = add_smoothed_precip(ts, alpha)
     ts1 = generate_poly_ts(ts[future_components], deg)
-    ts2 = generate_datetime_ts(ts)
+    ts2 = generate_onehot_dayofweek_ts(ts)
 
     return ts.drop_columns(future_components).concatenate(
         ts1.concatenate(ts2, axis=1), axis=1
