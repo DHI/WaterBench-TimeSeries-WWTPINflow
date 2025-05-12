@@ -1,9 +1,14 @@
 import numpy as np
 import pandas as pd
 
-from typing import Optional, Callable, Tuple
+import matplotlib.pyplot as plt
+
+from sklearn.preprocessing import PolynomialFeatures
+
+from typing import Optional, Callable, Tuple, List
 
 from darts import TimeSeries
+from darts.utils.missing_values import extract_subseries
 from darts.models.forecasting.forecasting_model import ForecastingModel
 
 
@@ -33,7 +38,59 @@ def example_train_test_data() -> Tuple[pd.DataFrame, pd.DataFrame]:
     train_data = data[train_mask].copy()
     test_data = data[test_mask].copy()
 
+    # The temperature at grass level and 30 cm below the surface have
+    # a big gap at the end. Since we have other temperature measurements,
+    # e.g. `mean_temp` and `temp_soil_10`, we discard the following to
+    # preserve as many samples as possible.
+    faulty_variables = ["temp_grass", "temp_soil_30"]
+    train_data.drop(columns=faulty_variables, inplace=True)
+    test_data.drop(columns=faulty_variables, inplace=True)
+
     return train_data, test_data
+
+
+def example_train_subseries() -> List[TimeSeries]:
+    min_ts_length = 24 * 7
+    train_data, _ = example_train_test_data()
+    train_ts = TimeSeries.from_dataframe(train_data, freq="h")
+    subseries = extract_subseries(train_ts, mode="any")
+
+    return [s for s in subseries if len(s) >= min_ts_length]
+
+
+def example_test_series() -> TimeSeries:
+    _, test_data = example_train_test_data()
+    return TimeSeries.from_dataframe(test_data)
+
+
+def visualize_example_measurements():
+    subseries = example_train_subseries()
+    test_ts = example_test_series()
+
+    fig, axes = plt.subplots(2, 1, figsize=(15, 5), sharex=True)
+    for s in subseries:
+        s["flow"].plot(ax=axes[0], linewidth=0.8)
+        s["acc_precip"].plot(ax=axes[1], linewidth=0.8)
+
+    test_ts["flow"].plot(linewidth=0.8, ax=axes[0], color="lime")
+    test_ts["acc_precip"].plot(linewidth=0.8, ax=axes[1], color="lime")
+
+    start_test = test_ts.time_index[0]
+    end_test = test_ts.time_index[-1]
+
+    for j in [0, 1]:
+        axes[j].axvspan(start_test, end_test, color="grey", alpha=0.3)
+        axes[j].text(
+            start_test + (end_test - start_test) / 2,
+            2.5,
+            "TEST",
+            ha="center",
+            va="center",
+            fontsize=12,
+        )
+
+    axes[0].legend().set_visible(False), axes[1].legend().set_visible(False)
+    axes[0].set_ylabel("Flow [m^3/h]"), axes[1].set_ylabel("Acc. Precip. [mm]")
 
 
 def holt_smoother(x: np.array, alpha: float) -> np.array:
@@ -45,6 +102,50 @@ def holt_smoother(x: np.array, alpha: float) -> np.array:
         y[t] = alpha * x[t] + (1 - alpha) * y[t - 1]
 
     return y
+
+
+def generate_datetime_ts(ts: TimeSeries) -> TimeSeries:
+    """Generates time series of date time features using one hot encoding"""
+    dayofweek = (
+        pd.get_dummies(ts.time_index.day_of_week)
+        .rename(columns=lambda x: f"dow_{x}")
+        .set_index(ts.time_index)
+    )
+    hours = (
+        pd.get_dummies(ts.time_index.hour)
+        .rename(columns=lambda x: f"hour_{x}")
+        .set_index(ts.time_index)
+    )
+
+    datetime_features = dayofweek.merge(
+        hours, left_index=True, right_index=True
+    ).astype(int)
+
+    return TimeSeries.from_dataframe(datetime_features)
+
+
+def generate_poly_ts(ts: TimeSeries, degree: int) -> TimeSeries:
+    poly_values = PolynomialFeatures(degree, include_bias=False).fit_transform(
+        ts.values()
+    )
+    poly_features = pd.DataFrame(
+        poly_values,
+        columns=[f"polyfeature_{i}" for i in range(poly_values.shape[1])],
+        index=ts.time_index,
+    )
+
+    return TimeSeries.from_dataframe(
+        poly_features,
+        freq="h",
+    )
+
+
+def add_smoothed_precip(ts: TimeSeries, alpha: float) -> TimeSeries:
+    lp_precip = holt_smoother(ts["acc_precip"].values().ravel(), alpha)
+    ts_lp = TimeSeries.from_series(
+        pd.Series(lp_precip, index=ts.time_index, name="smooth_precip")
+    )
+    return ts.concatenate(ts_lp, axis=1)
 
 
 def compute_errors(
