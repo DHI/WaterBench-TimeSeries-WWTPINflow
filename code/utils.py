@@ -9,6 +9,7 @@ from typing import Optional, Callable, Tuple, List
 
 from darts import TimeSeries
 from darts.utils.missing_values import extract_subseries
+from darts.models import NaiveMovingAverage
 from darts.models.forecasting.forecasting_model import ForecastingModel
 
 
@@ -61,6 +62,53 @@ def example_train_subseries() -> List[TimeSeries]:
 def example_test_series() -> TimeSeries:
     _, test_data = example_train_test_data()
     return TimeSeries.from_dataframe(test_data)
+
+
+def example_pipeline(ts: TimeSeries) -> TimeSeries:
+    """We transform the dataset by:
+        - Including a smoothed rain
+        - The value of the parameter $\alpha$ is based on the correlation study and simple trial and error to minimize forecasting error
+        - Including polynomial functions of the weather features
+        - Including datetime features, using one hot encoding
+
+    Returns
+    -------
+    TimeSeries
+        Expanded timeseries after adding features
+    """
+    alpha = 0.2  # smoothing coefficient
+    deg = 3  # polynomial degree
+
+    # We use our future precipitation observations as a "perfect forecast"
+    future_components = [
+        "acc_precip",
+        "smooth_precip",
+    ]
+
+    ts = add_smoothed_precip(ts, alpha)
+    ts1 = generate_poly_ts(ts[future_components], deg)
+    ts2 = generate_datetime_ts(ts)
+
+    return ts.drop_columns(future_components).concatenate(
+        ts1.concatenate(ts2, axis=1), axis=1
+    )
+
+
+def example_target_and_features(
+    ts: TimeSeries | List[TimeSeries], target_var: str
+) -> Tuple[TimeSeries, TimeSeries] | Tuple[List[TimeSeries], List[TimeSeries]]:
+    if isinstance(ts, TimeSeries):
+        target_ts = ts[target_var]
+        features = ts.drop_columns(target_var)
+        expanded_features = example_pipeline(features)
+    else:
+        target_ts = [s[target_var] for s in ts]
+        subts = [s.drop_columns(target_var) for s in ts]
+        expanded_features = []
+        for s in subts:
+            expanded_features.append(example_pipeline(s))
+
+    return target_ts, expanded_features
 
 
 def visualize_example_measurements():
@@ -218,4 +266,28 @@ def get_rmse(errors: pd.DataFrame):
         .groupby(errors["lead_time"])
         .mean()
         .apply(np.sqrt)
+    )
+
+
+def generate_baseline_df(
+    ts: TimeSeries, n_lags: int, output_chunk_length: int
+) -> pd.DataFrame:
+    naive = NaiveMovingAverage(input_chunk_length=n_lags)
+    naive_errors = compute_errors(ts, naive, output_chunk_length, is_naive=True)
+
+    return pd.DataFrame(
+        {
+            "RMSE": get_rmse(naive_errors),
+            "MAPE": get_mape(naive_errors),
+            "model": "baseline",
+        }
+    )
+
+
+def assemble_comparison(candidates: List[pd.DataFrame]) -> pd.DataFrame:
+    """Returns a dataframe comparing multiple models by lead time and metric"""
+    return (
+        pd.concat(candidates, axis=0)
+        .reset_index()
+        .melt(id_vars=["lead_time", "model"], var_name="metric")
     )
