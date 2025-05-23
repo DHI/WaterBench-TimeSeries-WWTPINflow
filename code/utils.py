@@ -40,8 +40,8 @@ def generate_poly_ts(ts: TimeSeries, degree: int) -> TimeSeries:
     )
 
 
-def add_smooth_precip(ts: TimeSeries, n_days: int) -> TimeSeries:
-    acc_precip = ts["acc_precip"].to_series().rolling(n_days).sum()
+def add_smooth_precip(ts: TimeSeries, n_hours: int) -> TimeSeries:
+    acc_precip = ts["acc_precip"].to_series().rolling(n_hours).sum()
     acc_precip.name = "smooth_precip"
     return ts.concatenate(TimeSeries.from_series(acc_precip), axis=1)
 
