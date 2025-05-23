@@ -31,6 +31,8 @@ The dataset contains the following variables, all measured at hourly resolution.
 | temp_soil_10 | Temperature at 10 cm underground | °C | DMI |
 | temp_soil_30 | Temperature at 30 cm underground |  °C| DMI |
 
+Currently, this data set includes only measured variables. However, given the purpose of this repository, it will be relevant to include forecasted variables. <u>Our goal is to include weather forecast in future versions.</u>
+
 ## Intended use
 
 This repository is aimed at supporting educational, research, and exploratory activities, such as:
